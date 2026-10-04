@@ -224,3 +224,6 @@ data/
 
 .venv/
 __pycache__/
+
+!labs/lab02/data/
+!labs/lab02/data/**
