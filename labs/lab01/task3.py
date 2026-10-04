@@ -18,6 +18,7 @@ PERSONAL_SALT = str(VARIANT_NUMBER).zfill(5)
 class ValidationError(Exception):
     pass
 
+
 MIN_PASSWORD_LENGTH = 10
 
 
@@ -68,7 +69,9 @@ def create_users(users_list):
         with open(file_path, "w", encoding="utf-8") as file:
             for username, password in users_list:
                 user_data = create_user(username, password)
-                file.write(f"{user_data[0]},{user_data[1]}\n") # Запис у форматі логін,хеш_пароля
+                file.write(
+                    f"{user_data[0]},{user_data[1]}\n"
+                )  # Запис у форматі логін,хеш_пароля
         print("Базу даних успішно створено.")
         print(f"Шлях до файлу: {file_path}")
     except (OSError, PermissionError) as e:
@@ -164,10 +167,10 @@ def login(username: str, password: str) -> bool:
 def main():
     print("Запуск головної функції main")
     try:
-        create_users(users_to_register) # Створення БД
+        create_users(users_to_register)  # Створення БД
 
         global users_db
-        users_db = read_users_db() # Завантаження БД
+        users_db = read_users_db()  # Завантаження БД
 
         # Тест входу
         print("\nТест входу:")
@@ -182,8 +185,9 @@ def main():
         print(f"Некоректне значення: {e}")
     except (OSError, FileNotFoundError, PermissionError) as e:
         print(f"Помилка роботи з файлами: {e}")
-    except Exception as e: # noqa: BLE001
+    except Exception as e:  # noqa: BLE001
         print(f"Невідома помилка: {e}")
+
 
 if __name__ == "__main__":
     main()
