@@ -221,3 +221,6 @@ __marimo__/
 data/
 *.csv
 *.json
+
+.venv/
+__pycache__/
