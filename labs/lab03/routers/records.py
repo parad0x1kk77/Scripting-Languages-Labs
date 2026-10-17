@@ -1,6 +1,7 @@
 import sqlite3
-from fastapi import APIRouter, HTTPException, status, Query
-from typing import List, Optional
+
+from fastapi import APIRouter, HTTPException, Query, status
+
 from .. import repository, schemas
 
 router = APIRouter(prefix="/records", tags=["records"])
@@ -13,14 +14,14 @@ def handle_integrity_error(e: sqlite3.IntegrityError):
     raise HTTPException(status_code=409, detail="Record with this code already exists")
 
 
-@router.get("", response_model=List[schemas.RecordRead])
+@router.get("", response_model=list[schemas.RecordRead])
 def get_records(
-        category_id: Optional[int] = Query(None, ge=1),
-        status: Optional[str] = None,
-        min_value: Optional[float] = None,
-        q: Optional[str] = Query(None, min_length=1, max_length=120),
-        limit: int = Query(20, ge=1, le=100),
-        offset: int = Query(0, ge=0)
+    category_id: int | None = Query(None, ge=1),
+    status: str | None = None,
+    min_value: float | None = None,
+    q: str | None = Query(None, min_length=1, max_length=120),
+    limit: int = Query(20, ge=1, le=100),
+    offset: int = Query(0, ge=0),
 ):
     return repository.get_records(category_id, status, min_value, q, limit, offset)
 
@@ -48,7 +49,12 @@ def create_record(record: schemas.RecordCreate):
 def update_record(record_id: int, record: schemas.RecordReplace):
     try:
         success = repository.update_record(
-            record_id, record.code, record.title, record.category_id, record.value, record.status
+            record_id,
+            record.code,
+            record.title,
+            record.category_id,
+            record.value,
+            record.status,
         )
         if not success:
             raise HTTPException(status_code=404, detail="Record not found")
@@ -64,10 +70,17 @@ def delete_record(record_id: int):
         raise HTTPException(status_code=404, detail="Record not found")
 
 
-@router.post("/bulk", response_model=List[schemas.RecordRead], status_code=status.HTTP_201_CREATED)
-def bulk_create_records(records: List[schemas.RecordCreate]):
+@router.post(
+    "/bulk",
+    response_model=list[schemas.RecordRead],
+    status_code=status.HTTP_201_CREATED,
+)
+def bulk_create_records(records: list[schemas.RecordCreate]):
     if not (1 <= len(records) <= 100):
-        raise HTTPException(status_code=422, detail="Bulk package must contain between 1 and 100 records")
+        raise HTTPException(
+            status_code=422,
+            detail="Bulk package must contain between 1 and 100 records",
+        )
 
     records_dicts = [rec.model_dump() for rec in records]
     try:
