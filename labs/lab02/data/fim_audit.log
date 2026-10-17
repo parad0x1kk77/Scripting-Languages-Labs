@@ -1,0 +1,18 @@
+[INFO] 2026-10-04 17:56:39,139 - Loading baseline file: labs\lab02\data\baseline.json
+[INFO] 2026-10-04 17:56:39,139 - Scanning directory: labs\lab02\data\monitored
+[WARNING] 2026-10-04 17:56:39,141 - Файл змінено: config\app.conf
+[WARNING] 2026-10-04 17:56:39,142 - Файл змінено: scripts\backup.sh
+[WARNING] 2026-10-04 17:56:39,142 - Створено новий файл: new\agent.conf
+[WARNING] 2026-10-04 17:56:39,142 - Файл видалено: obsolete.txt
+[INFO] 2026-10-05 11:48:19,528 - Loading baseline file: labs\lab02\data\baseline.json
+[INFO] 2026-10-05 11:48:19,528 - Scanning directory: labs\lab02\data\monitored
+[WARNING] 2026-10-05 11:48:19,555 - Файл змінено: config\app.conf
+[WARNING] 2026-10-05 11:48:19,555 - Файл змінено: scripts\backup.sh
+[WARNING] 2026-10-05 11:48:19,555 - Створено новий файл: new\agent.conf
+[WARNING] 2026-10-05 11:48:19,556 - Файл видалено: obsolete.txt
+[INFO] 2026-10-05 12:05:40,719 - Loading baseline file: labs\lab02\data\baseline.json
+[INFO] 2026-10-05 12:05:40,720 - Scanning directory: labs\lab02\data\monitored
+[WARNING] 2026-10-05 12:05:40,723 - Файл змінено: config\app.conf
+[WARNING] 2026-10-05 12:05:40,724 - Файл змінено: scripts\backup.sh
+[WARNING] 2026-10-05 12:05:40,724 - Створено новий файл: new\agent.conf
+[WARNING] 2026-10-05 12:05:40,724 - Файл видалено: obsolete.txt
