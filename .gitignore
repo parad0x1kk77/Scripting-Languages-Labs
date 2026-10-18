@@ -228,6 +228,9 @@ __pycache__/
 !labs/lab02/data/
 !labs/lab02/data/**
 
+!labs/lab03/data/
+!labs/lab03/data/seed.json
+
 labs/lab03/data/*.sqlite3
 labs/lab03/data/*.sqlite3-*
 labs/lab03/data/*.db

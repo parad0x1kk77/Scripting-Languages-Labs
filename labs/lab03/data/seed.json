@@ -1,0 +1,17 @@
+{
+  "categories": [
+    {"id": 1, "name": "mail"},
+    {"id": 2, "name": "vpn"},
+    {"id": 3, "name": "dns"}
+  ],
+  "records": [
+    {"code": "V02-01", "title": "Перевірка сервісу 01", "category_id": 1, "value": 6.8, "status": "new"},
+    {"code": "V02-02", "title": "Перевірка сервісу 02", "category_id": 2, "value": 4.1, "status": "in_progress"},
+    {"code": "V02-03", "title": "Перевірка сервісу 03", "category_id": 3, "value": 8.2, "status": "done"},
+    {"code": "V02-04", "title": "Перевірка сервісу 04", "category_id": 1, "value": 5.0, "status": "new"},
+    {"code": "V02-05", "title": "Перевірка сервісу 05", "category_id": 2, "value": 7.4, "status": "done"},
+    {"code": "V02-06", "title": "Перевірка сервісу 06", "category_id": 3, "value": 3.6, "status": "in_progress"},
+    {"code": "V02-07", "title": "Перевірка сервісу 07", "category_id": 1, "value": 9.0, "status": "done"},
+    {"code": "V02-08", "title": "Перевірка сервісу 08", "category_id": 2, "value": 6.0, "status": "new"}
+  ]
+}
