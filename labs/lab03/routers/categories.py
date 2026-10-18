@@ -1,19 +1,27 @@
 import sqlite3
 
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, HTTPException, Path, status
 
 from .. import repository, schemas
 
 router = APIRouter(prefix="/categories", tags=["categories"])
 
 
-@router.get("", response_model=list[schemas.CategoryRead])
+@router.get(
+    "",
+    response_model=list[schemas.CategoryRead],
+    summary="Список категорій",
+)
 def get_categories():
     return repository.get_categories()
 
 
 @router.post(
-    "", response_model=schemas.CategoryRead, status_code=status.HTTP_201_CREATED
+    "",
+    response_model=schemas.CategoryRead,
+    status_code=status.HTTP_201_CREATED,
+    summary="Створити категорію",
+    responses={409: {"description": "Категорія з такою назвою вже існує"}},
 )
 def create_category(category: schemas.CategoryCreate):
     try:
@@ -25,8 +33,18 @@ def create_category(category: schemas.CategoryCreate):
         )
 
 
-@router.delete("/{category_id}", status_code=status.HTTP_204_NO_CONTENT)
-def delete_category(category_id: int):
+@router.delete(
+    "/{category_id}",
+    status_code=status.HTTP_204_NO_CONTENT,
+    summary="Видалити порожню категорію",
+    responses={
+        404: {"description": "Категорію не знайдено"},
+        409: {"description": "Категорія містить записи"},
+    },
+)
+def delete_category(
+    category_id: int = Path(ge=1, description="Ідентифікатор категорії"),
+):
     try:
         success = repository.delete_category(category_id)
         if not success:
