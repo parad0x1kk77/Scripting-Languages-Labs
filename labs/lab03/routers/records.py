@@ -27,14 +27,12 @@ def get_records(
     status: Literal["new", "in_progress", "done"] | None = Query(
         None, description="Лише записи з цим статусом"
     ),
-    min_value: float | None = Query(
-        None, ge=0, le=10, description="Мінімальна оцінка (value >= min_value)"
-    ),
+    min_value: float | None = Query(None, ge=0, le=10, description="Мінімальна оцінка"),
     q: str | None = Query(
         None,
         min_length=1,
         max_length=120,
-        description="Буквальний підрядок у title (з урахуванням регістру)",
+        description="Буквальний підрядок у title",
     ),
     limit: int = Query(20, ge=1, le=100, description="Максимум записів"),
     offset: int = Query(0, ge=0, description="Скільки записів пропустити"),
@@ -120,7 +118,7 @@ def delete_record(record_id: int = Path(ge=1, description="Ідентифіка�
     "/bulk",
     response_model=list[schemas.RecordRead],
     status_code=status.HTTP_201_CREATED,
-    summary="Пакетне створення записів (атомарно)",
+    summary="Пакетне створення записів",
     responses={
         404: {"description": "Одну з категорій не знайдено, пакет не збережено"},
         409: {"description": "Дублікат code, пакет не збережено"},
