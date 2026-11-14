@@ -1,0 +1,39 @@
+import os
+from typing import Any
+
+import requests
+
+NVD_API_URL = "https://services.nvd.nist.gov/rest/json/cves/2.0"
+REQUEST_TIMEOUT = (3.05, 10)
+
+
+class UnexpectedStatusError(Exception):
+    """Статус відповіді не 200."""
+
+    def __init__(self, status_code: int) -> None:
+        super().__init__(f"Неочікуваний HTTP-статус: {status_code}")
+        self.status_code = status_code
+
+
+def build_headers() -> dict[str, str]:
+    """Формує заголовки запиту, додає ключ API якщо він є."""
+    headers = {"Accept": "application/json"}
+    api_key = os.getenv("NVD_API_KEY")
+    if api_key is not None and api_key.strip():
+        headers["apiKey"] = api_key.strip()
+    return headers
+
+
+def fetch_response(cve_id: str) -> Any:
+    """Отримує дані про CVE з NVD API."""
+    response = requests.get(
+        NVD_API_URL,
+        params={"cveId": cve_id},
+        headers=build_headers(),
+        timeout=REQUEST_TIMEOUT,
+        allow_redirects=False,
+    )
+    response.raise_for_status()
+    if response.status_code != 200:
+        raise UnexpectedStatusError(response.status_code)
+    return response.json()
