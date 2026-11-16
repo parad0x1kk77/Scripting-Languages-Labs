@@ -17,6 +17,16 @@ python -m labs.lab04.main --cve CVE-2099-10001 --input labs/lab04/data/nvd_sampl
 python -m labs.lab04.main --cve CVE-2021-44228
 ```
 
+## Тести
+
+Команди виконуються з кореня репозиторію.
+
+```
+python -m pytest labs/lab04/tests -q
+
+python -m labs.lab04.main --cve abc (Помилка: хибний формат ідентифікатора)
+```
+
 Перша команда працює з локальним файлом, друга робить запит до NVD.
 Ключ API необов'язковий. Змінна середовища `NVD_API_KEY`
 
